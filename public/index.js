@@ -2,11 +2,6 @@ const rootElement = document.querySelector('body');
 let inputElement;
 let sendButtonElement;
 let commentsListElement;
-let commentElement;
-let authorElement;
-let textElement;
-let dateElement;
-let deleteButtonElement;
 
 function inputRender() {
     inputElement = document.createElement('textarea');
@@ -19,29 +14,49 @@ function inputRender() {
     rootElement.appendChild(sendButtonElement);
 }
 
-
 function commentsListRender() {
     commentsListElement = document.createElement('ul');
-    commentElement = document.createElement('li');
-    authorElement = document.createElement('p');
-    textElement = document.createElement('p');
-    dateElement = document.createElement('p');
-    deleteButtonElement = document.createElement('button');
 
     commentsListElement.classList.add('comments');
+
+    rootElement.appendChild(commentsListElement);
+
+    const commentItem = generateComment({
+        author: 'Nataliia',
+        text: 'Test comment',
+        id: '12123',
+        date: '2019-10-31T22:21:42.880Z'
+    });
+
+    commentsListElement.appendChild(commentItem);
+}
+
+function generateComment(commentObject) {
+    const commentElement = document.createElement('li');
+    const authorElement = document.createElement('p');
+    const textElement = document.createElement('p');
+    const dateElement = document.createElement('p');
+    const deleteButtonElement = document.createElement('button');
+
+
     commentElement.classList.add('comments__item');
     authorElement.classList.add('comments__author');
     textElement.classList.add('comments__text');
     dateElement.classList.add('comments__date');
     deleteButtonElement.classList.add('comments__delete');
+
+    authorElement.innerText = commentObject.author;
+    textElement.innerText = commentObject.text;
+    dateElement.innerText = commentObject.date;
+    commentElement.id = commentObject.id;
     deleteButtonElement.innerText = 'Delete';
 
-    rootElement.appendChild(commentsListElement);
     commentElement.appendChild(authorElement);
     commentElement.appendChild(textElement);
     commentElement.appendChild(dateElement);
     commentElement.appendChild(deleteButtonElement);
-    commentsListElement.appendChild(commentElement);
+
+    return commentElement;
 }
 
 inputRender();
